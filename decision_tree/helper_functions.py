@@ -1,4 +1,5 @@
 import numpy as np
+import helper_classes as hc
 
 def randomMatrixGenerator(list_size = 2, range_num = 2):
     import random
@@ -31,7 +32,7 @@ def calculateInfoGain(attr, data_set):
 
     for val in val_freq.keys():
         p_t = val_freq[val] / sum(val_freq.values())
-        data_subset = [subset for subset in data_set if subset[attr] == val]
-        subset_entropy += p_t * calculateEntropy(data_subset)
+        data_subset = [subset.getAttributeList().values() for subset in data_set.getListByAttr(val) if subset.getAttributeList()[val] == 1]
+        subset_entropy += p_t * calculateEntropy(hc.DataSet(data_subset, val_freq.keys()))
 
     return (original_entropy - subset_entropy)
