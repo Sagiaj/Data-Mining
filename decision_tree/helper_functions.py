@@ -10,8 +10,8 @@ def calculateEntropy(data_set):
     attr_list = data_set.getAttrList()
     entropy = 0
     for x in attrs:
-        x_len = len((data_set.getListByAttr(x)))
-        p_x = float(x_len/len(attr_list))
+        x_len = len((data_set.getTargetedByAttr(x)))
+        p_x = float(x_len/len(attr_list[x]))
         if p_x > 0:
             entropy += -p_x*np.log2(1/p_x)
     return entropy
@@ -36,3 +36,7 @@ def calculateInfoGain(attr, data_set):
         subset_entropy += p_t * calculateEntropy(hc.DataSet(data_subset, val_freq.keys()))
 
     return (original_entropy - subset_entropy)
+
+
+# def recurseDecisionTree(data_set):
+#     recurseDecisionTree(hc.DataSet(new_data_set))
