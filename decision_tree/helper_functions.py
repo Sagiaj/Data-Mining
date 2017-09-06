@@ -10,10 +10,12 @@ def calculateEntropy(data_set):
     attr_list = data_set.getAttrList()
     entropy = 0
     for x in attrs:
+        set_len = len(attr_list[x])
         x_len = len((data_set.getTargetedByAttr(x)))
-        p_x = float(x_len/len(attr_list[x]))
-        if p_x > 0:
-            entropy += -p_x*np.log2(1/p_x)
+        p_x = float(x_len/set_len)
+        n_x = float((set_len - x_len)/set_len)
+        if p_x >= 0 and n_x >= 0:
+            entropy += -p_x*np.log2(1/p_x) -n_x*np.log2(1/n_x)
     return entropy
 
 def calculateInfoGain(attr, data_set):
