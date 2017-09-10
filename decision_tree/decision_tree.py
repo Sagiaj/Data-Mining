@@ -21,4 +21,4 @@ random_list = hf.randomMatrixGenerator(instance_num, len(predefined_props))
 
 data_set = hc.DataSet(random_list, predefined_props, target_attr_list)
 
-print(hf.calculateInfoGain('height', data_set))
+my_tree = hf.recurseDecisionTree(data_set, 'successful', predefined_props)

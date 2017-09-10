@@ -22,7 +22,6 @@ class DataSet(object):
     def createInstanceList(self, raw_list, attrs, target_attr_list):
         instance_list = []
         for i in range(0, len(raw_list) - 1):
-            print(i, raw_list[i])
             instance_list.append(Instance(attrs, raw_list[i], target_attr_list[i]))
 
         return instance_list
@@ -68,11 +67,13 @@ class DataSet(object):
 
         return filtered_list
 
-    def getTargetedListByAttr(self, attr, value=1):
+    def getTargetedListByAttr(self, attr, value=None):
+        if value is None:
+            value = [0, 1]
         filtered_list = []
         attr_list = self.getUnfilteredList()
         for instance in attr_list:
-            if instance.getAttributeList()[attr] == value:
+            if instance.getAttributeList()[attr] in value:
                 filtered_list.append(instance.getTargetAttr())
 
         return filtered_list
