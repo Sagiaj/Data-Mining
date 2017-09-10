@@ -19,9 +19,6 @@ instance_num = 1000
 target_attr_list = [random.randint(0,1) for i in range(1, instance_num)]
 random_list = hf.randomMatrixGenerator(instance_num, len(predefined_props))
 
-# let the appended last column denote the target attribute availability
-# for i in range(0, len(random_list) - 1):
-#     random_list[i].append(target_attr_list[i])
 data_set = hc.DataSet(random_list, predefined_props, target_attr_list)
 
 print(hf.calculateInfoGain('height', data_set))
