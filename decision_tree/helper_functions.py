@@ -1,9 +1,12 @@
 import numpy as np
+import csv
 import helper_classes as hc
+
 
 def randomMatrixGenerator(list_size = 2, range_num = 2):
     import random
     return [[random.randint(0, 1) for j in range(range_num)] for i in range(list_size)]
+
 
 def calculateEntropy(data_set):
     attrs = data_set.getAttrs()
@@ -20,6 +23,7 @@ def calculateEntropy(data_set):
             entropy += -p_x*np.log2(p_x) -n_x*np.log2(n_x)
     return entropy
 
+
 def calculateInfoGain(attr, data_set):
     original_entropy = calculateEntropy(data_set)
     attrs = data_set.getAttrs()
@@ -34,16 +38,15 @@ def calculateInfoGain(attr, data_set):
             hc.DataSet(data_subset, attrs, data_set.getTargetedListByAttr(attr, value=[possibility]))
         )
 
-    return (original_entropy - subset_entropy)
+    return original_entropy - subset_entropy
 
-
+result_set = []
 def recurseDecisionTree(data_set, target_attr, attrs):
     print("current set: ", data_set)
     optimal_subset = []
     current_subset = []
     data_subset = []
     max_info_gain = 0.0
-
     for attr in data_set.getAttrs():
         data_subset.clear()
         del current_subset
@@ -56,7 +59,9 @@ def recurseDecisionTree(data_set, target_attr, attrs):
             optimal_subset = current_subset
             max_info_gain = current_info_gain
     if max_info_gain != 0:
+        result_set.append(max_info_gain)
         print('maximal info gain: ', max_info_gain)
         return recurseDecisionTree(optimal_subset, target_attr, attrs)
     else:
+        np.savetxt("test.csv", result_set, fmt="%f", delimiter=",")
         return optimal_subset

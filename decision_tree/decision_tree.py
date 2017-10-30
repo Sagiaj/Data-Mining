@@ -3,11 +3,10 @@ from sklearn.cluster import KMeans
 import helper_functions as hf
 import helper_classes as hc
 import random
-#column is attr (for example height is an attr)
-#row is an instance(for example a person is an instance)
 
-
-
+# column is attr (for example height is an attr)
+# row is an instance(for example a person is an instance)
+# steps:
 # calculate information gain recursively
 # export the results to an external file in any format
 # create a decision tree class to support the gain
